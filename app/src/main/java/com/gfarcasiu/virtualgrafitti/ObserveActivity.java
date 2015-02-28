@@ -1,16 +1,14 @@
 package com.gfarcasiu.virtualgrafitti;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class HomeActivity extends Activity {
+public class ObserveActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +16,15 @@ public class HomeActivity extends Activity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-        setContentView(R.layout.activity_home);
+
+        setContentView(R.layout.activity_observe);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_observe, menu);
         return true;
     }
 
@@ -42,9 +41,5 @@ public class HomeActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void start(View view) {
-        startActivity(new Intent(this, ObserveActivity.class));
     }
 }

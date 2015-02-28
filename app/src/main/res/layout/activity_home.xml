@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".HomeActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/graffiti_city" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,6 +16,11 @@
             android:gravity="center"
             android:textSize="50sp"
             android:textStyle="bold"
+            android:textColor="#000000"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="10"
             android:text="Virtual Graffiti"/>
     </LinearLayout>
 
@@ -24,7 +30,11 @@
         android:layout_weight="2"
         android:gravity="center" >
         <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:text="Start"
+            android:alpha=".75"
+            android:onClick="start"
+            android:background="@drawable/square_button"/>
     </LinearLayout>
 </LinearLayout>
