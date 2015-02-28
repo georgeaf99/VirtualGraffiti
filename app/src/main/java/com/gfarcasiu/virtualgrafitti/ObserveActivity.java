@@ -2,14 +2,17 @@ package com.gfarcasiu.virtualgrafitti;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.ActionBarActivity;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 
 public class ObserveActivity extends Activity {
+    private Camera mCamera;
+    private CameraPreview mPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,20 @@ public class ObserveActivity extends Activity {
         mPreview = new CameraPreview(this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
+    }
+
+    private Camera getCameraInstance() {
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+            Log.e("Error", "Camera Returned valid state.");
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+            Log.e("Error", "Camera Returned null!!!!!");
+        }
+
+        return c; // returns null if camera is unavailable
     }
 
 
