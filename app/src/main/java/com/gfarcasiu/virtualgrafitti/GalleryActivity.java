@@ -56,10 +56,14 @@ public class GalleryActivity extends Activity {
 
         ia.addImages(bitMaps);*/
 
-        File[] file = new File[DrawActivity.files.size()];
-        int index = 0;
+        int extra = 6;
+        File[] file = new File[DrawActivity.files.size() + extra];
+        int index = extra;
         for (File f : DrawActivity.files)
             file[index++] = f;
+
+        for (int i = 0; i < extra; i++)
+            file[i] = new File("/storage/emulated/0/Pictures/Special/"+(i+1)+".jpg");
 
         ia.addFiles(file);
 
