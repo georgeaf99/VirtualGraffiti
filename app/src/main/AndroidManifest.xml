@@ -31,6 +31,10 @@
             android:name=".DrawActivity"
             android:label="@string/title_activity_draw" >
         </activity>
+        <activity
+            android:name=".GalleryActivity"
+            android:label="@string/title_activity_gallery" >
+        </activity>
     </application>
 
 </manifest>
