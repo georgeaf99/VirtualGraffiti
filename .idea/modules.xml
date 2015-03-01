@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VirtualGraffiti.iml" filepath="$PROJECT_DIR$/VirtualGraffiti.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VirtualGrafitti.iml" filepath="$PROJECT_DIR$/VirtualGrafitti.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
