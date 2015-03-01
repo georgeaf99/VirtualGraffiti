@@ -18,7 +18,7 @@ public class DrawingView extends ImageView {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = 0xFF6600;
+    private int paintColor = 0xFFFF0000;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap

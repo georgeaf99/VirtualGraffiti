@@ -107,5 +107,8 @@ public class DrawActivity extends Activity {
             currPaint=(ImageButton)view;
         }//update color
     }//paint clicked
+    //public void changeRed(View view){
+
+    //}//
 
 }
