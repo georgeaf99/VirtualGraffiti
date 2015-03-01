@@ -14,7 +14,7 @@ import android.view.View;
 
 
 public class DrawActivity extends Activity {
-    private ImageButton currPaint = null;
+    //private ImageButton currPaint = null;
     private DrawingView drawView;
 
     @Override
@@ -99,16 +99,31 @@ public class DrawActivity extends Activity {
     }
 
     // Set paint colors
-    public void paintClicked(View view){
+    /*public void paintClicked(View view){
         if(view!=currPaint){
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
             drawView.setColor(color);
             currPaint=(ImageButton)view;
         }//update color
-    }//paint clicked
-    //public void changeRed(View view){
-
-    //}//
+    }//paint clicked*/
+    public void changeRed(View view) {
+        drawView.setColor(0xFFFF0000);
+    }//changeRed
+    public void changeOrange(View view) {
+        drawView.setColor(0xFFFF6600);
+    }//change orange
+    public void changeYellow(View view) {
+        drawView.setColor(0xFFFFFF00);
+    }//change yellow
+    public void changeGreen(View view) {
+        drawView.setColor(0xFF00FF00);
+    }//change green
+    public void changeBlue(View view) {
+        drawView.setColor(0xFF0000FF);
+    }//change blue
+    public void changeViolet(View view) {
+        drawView.setColor(0xFFFF00FF);
+    }//change violet
 
 }
