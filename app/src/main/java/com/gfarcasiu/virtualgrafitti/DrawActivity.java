@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.view.View;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 //import android.widget.LinearLayout;
 
 
@@ -24,8 +27,25 @@ public class DrawActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Establish connection with Firebase
         Firebase.setAndroidContext(this);
         firebaseRef = new Firebase("https://virtualgraffiti.firebaseio.com/");
+
+        //Add Firebase listener
+        firebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue());
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
+        //Writing to Firebase example
+        //https://www.firebase.com/docs/android/guide/saving-data.html
+        //myFirebaseRef.child("message").setValue("Do you have data? You'll love Firebase.");
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
