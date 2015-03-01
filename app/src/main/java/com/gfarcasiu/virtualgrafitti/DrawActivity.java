@@ -10,16 +10,22 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.view.View;
+
+import com.firebase.client.Firebase;
 //import android.widget.LinearLayout;
 
 
 public class DrawActivity extends Activity {
     //private ImageButton currPaint = null;
     private DrawingView drawView;
+    private Firebase firebaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Firebase.setAndroidContext(this);
+        firebaseRef = new Firebase("https://virtualgraffiti.firebaseio.com/");
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
