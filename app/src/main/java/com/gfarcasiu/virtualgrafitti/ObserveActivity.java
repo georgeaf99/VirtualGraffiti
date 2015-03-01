@@ -134,7 +134,12 @@ public class ObserveActivity extends Activity {
         if (mCamera == null)
             mCamera = getCameraInstance();
 
-        mCamera.takePicture(null, null, mPicture);
+        try {
+            mCamera.takePicture(null, null, mPicture);
+        } catch (RuntimeException e) {
+            Log.e("Error", e + "");
+            mCamera = null;
+        }
     }
 
     public void goToGallery(View view){
