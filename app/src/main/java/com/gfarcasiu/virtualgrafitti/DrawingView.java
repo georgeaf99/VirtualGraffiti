@@ -3,6 +3,7 @@ package com.gfarcasiu.virtualgrafitti;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,7 +18,7 @@ public class DrawingView extends ImageView {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = 0xFF660000;
+    private int paintColor = 0xFF6600;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -94,7 +95,9 @@ public class DrawingView extends ImageView {
         return true;
     }
 
-    public void setPaintColor(int paintColor) {
-        this.paintColor = paintColor;
+    public void setColor(String newColor) {
+        invalidate();
+        paintColor = Color.parseColor(newColor);
+        drawPaint.setColor(paintColor);
     }
 }

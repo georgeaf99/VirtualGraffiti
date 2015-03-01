@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+import android.view.View;
+//import android.widget.LinearLayout;
 
 
 public class DrawActivity extends Activity {
+    private ImageButton currPaint = null;
+    private DrawingView drawView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class DrawActivity extends Activity {
                 decodeSampledBitmapFromResource(options, imageLoc, 1920, 1080)
         );
 
-        DrawingView view = (DrawingView)findViewById(R.id.image_view);
+        drawView = (DrawingView)findViewById(R.id.image_view);
     }
 
     @Override
@@ -95,5 +99,13 @@ public class DrawActivity extends Activity {
     }
 
     // Set paint colors
+    public void paintClicked(View view){
+        if(view!=currPaint){
+            ImageButton imgView = (ImageButton)view;
+            String color = view.getTag().toString();
+            drawView.setColor(color);
+            currPaint=(ImageButton)view;
+        }//update color
+    }//paint clicked
 
 }
