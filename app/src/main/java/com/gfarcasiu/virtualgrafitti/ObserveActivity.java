@@ -82,7 +82,7 @@ public class ObserveActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         // Set landscape orientation
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_observe);
 
@@ -132,6 +132,9 @@ public class ObserveActivity extends Activity {
     }
 
     public void capture(View view) {
+        if (mCamera == null)
+            mCamera = getCameraInstance();
+
         mCamera.takePicture(null, null, mPicture);
     }
 

@@ -28,6 +28,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
+            if (mCamera == null)
+                mCamera = getCameraInstance();
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
         } catch (IOException e) {
@@ -38,9 +40,23 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
         mCamera.release();
+        mCamera = null;
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         // DO NOTHING
+    }
+
+    private Camera getCameraInstance() {
+        Camera c = null;
+
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+
+        return c; // returns null if camera is unavailable
     }
 }

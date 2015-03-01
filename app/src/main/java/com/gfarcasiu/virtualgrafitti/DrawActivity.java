@@ -27,9 +27,12 @@ public class DrawActivity extends Activity {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap bitmap = BitmapFactory.decodeFile(imageLoc, options);
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(imageLoc, options);
 
-        ((ImageView)(findViewById(R.id.image_view))).setImageBitmap(bitmap);
+        ((ImageView)(findViewById(R.id.image_view))).setImageBitmap(
+                decodeSampledBitmapFromResource(options, imageLoc, 1920, 1080)
+        );
     }
 
     @Override
@@ -55,20 +58,15 @@ public class DrawActivity extends Activity {
     }
 
     // HELPER METHODS
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
+    public static Bitmap decodeSampledBitmapFromResource(
+           BitmapFactory.Options options, String fileName, int reqWidth, int reqHeight) {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
+        return BitmapFactory.decodeFile(fileName, options);
     }
 
     public static int calculateInSampleSize(
