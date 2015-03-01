@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/VirtualGraffiti.iml" filepath="$PROJECT_DIR$/VirtualGraffiti.iml" />
       <module fileurl="file://$PROJECT_DIR$/VirtualGrafitti.iml" filepath="$PROJECT_DIR$/VirtualGrafitti.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/opencv/opencv.iml" filepath="$PROJECT_DIR$/libraries/opencv/opencv.iml" />
     </modules>
   </component>
 </project>
