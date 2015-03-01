@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gfarcasiu.virtualgrafitti.ObserveActivity"
-    android:gravity="end">
+    android:gravity="end"
+    android:id="@+id/main_layout">
 
-    <ImageView
+    <com.gfarcasiu.virtualgrafitti.DrawingView
         android:id="@+id/image_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -85,7 +86,7 @@
             android:paddingLeft="10dp"
             android:paddingStart="15dp"
             android:paddingRight="10dp"
-            android:paddingEnd="15dp">>
+            android:paddingEnd="15dp">
             <Button
                 android:layout_width="60dp"
                 android:layout_height="50dp"

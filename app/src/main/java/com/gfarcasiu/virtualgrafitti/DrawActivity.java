@@ -2,13 +2,13 @@ package com.gfarcasiu.virtualgrafitti;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 public class DrawActivity extends Activity {
@@ -33,6 +33,8 @@ public class DrawActivity extends Activity {
         ((ImageView)(findViewById(R.id.image_view))).setImageBitmap(
                 decodeSampledBitmapFromResource(options, imageLoc, 1920, 1080)
         );
+
+        DrawingView view = (DrawingView)findViewById(R.id.image_view);
     }
 
     @Override
@@ -91,4 +93,7 @@ public class DrawActivity extends Activity {
 
         return inSampleSize;
     }
+
+    // Set paint colors
+
 }

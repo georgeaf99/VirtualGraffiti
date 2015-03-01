@@ -24,7 +24,6 @@ public class ObserveActivity extends Activity {
     private Camera mCamera;
     private CameraPreview mPreview;
     File lastPicLoc;
-    boolean picUpdated = false;
 
     private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
