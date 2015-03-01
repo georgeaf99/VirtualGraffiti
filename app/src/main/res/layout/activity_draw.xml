@@ -52,42 +52,42 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFF0000"
-                android:onClick="changeRed"
+                android:onClick="paintClicked"
                 android:tag="#FFFF0000"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFF6600"
-                android:onClick="changeOrange"
+                android:onClick="paintClicked"
                 android:tag="#FFFF6600"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFFFF00"
-                android:onClick="changeYellow"
+                android:onClick="paintClicked"
                 android:tag="#FFFFFF00"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FF00FF00"
-                android:onClick="changeGreen"
+                android:onClick="paintClicked"
                 android:tag="#FF00FF00"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FF0000FF"
-                android:onClick="changeBlue"
+                android:onClick="paintClicked"
                 android:tag="#FF0000FF"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="#FFFF00FF"
-                android:onClick="changeViolet"
+                android:onClick="paintClicked"
                 android:tag="#FFFF00FF"/>
         </LinearLayout>
 
