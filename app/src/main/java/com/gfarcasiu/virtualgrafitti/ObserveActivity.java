@@ -1,18 +1,81 @@
 package com.gfarcasiu.virtualgrafitti;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class ObserveActivity extends Activity {
     private Camera mCamera;
     private CameraPreview mPreview;
+    File lastPicLoc;
+    boolean picUpdated = false;
+
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+
+            File pictureFile = getOutputMediaFile();
+            if (pictureFile == null) {
+                Log.d("Error", "Error creating media file, check storage permissions");
+                return;
+            }
+
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+
+                lastPicLoc = pictureFile;
+
+                goToDraw();
+            } catch (FileNotFoundException e) {
+                Log.d("Error", "File not found: " + e.getMessage());
+            } catch (IOException e) {
+                Log.d("Error", "Error accessing file: " + e.getMessage());
+            }
+        }
+
+        // HELPER METHOD
+        private File getOutputMediaFile() {
+            // To be safe, you should check that the SDCard is mounted
+            // using Environment.getExternalStorageState() before doing this.
+
+            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES), "MyCameraApp");
+            // This location works best if you want the created images to be shared
+            // between applications and persist after your app has been uninstalled.
+
+            // Create the storage directory if it does not exist
+            if (! mediaStorageDir.exists()){
+                if (! mediaStorageDir.mkdirs()){
+                    Log.d("Error", "failed to create directory");
+                    return null;
+                }
+            }
+
+            // Create a media file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            return new File(mediaStorageDir.getPath() + File.separator +
+                        "IMG_"+ timeStamp + ".jpg");
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,5 +129,19 @@ public class ObserveActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void capture(View view) {
+        mCamera.takePicture(null, null, mPicture);
+    }
+
+    public void goToDraw() {
+        Intent intent = new Intent(this, DrawActivity.class);
+
+        Bundle extras = new Bundle();
+        extras.putString("imageLocation", lastPicLoc.getAbsolutePath());
+
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

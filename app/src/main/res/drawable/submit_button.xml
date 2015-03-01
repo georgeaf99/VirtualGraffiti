@@ -3,9 +3,9 @@
     <item
         android:state_enabled="true"
         android:state_pressed="true"
-        android:drawable="@drawable/exit_icon"
+        android:drawable="@drawable/submit_icon"
         android:alpha = "0.25"/>
     <item
         android:state_enabled="true"
-        android:drawable="@drawable/exit_icon"/>
+        android:drawable="@drawable/submit_icon"/>
 </selector>
