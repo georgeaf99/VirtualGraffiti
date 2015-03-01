@@ -137,6 +137,10 @@ public class ObserveActivity extends Activity {
         mCamera.takePicture(null, null, mPicture);
     }
 
+    public void goToGallery(View view){
+        startActivity(new Intent(this, GalleryActivity.class));
+    }//go to gallery
+
     public void goToDraw() {
         Intent intent = new Intent(this, DrawActivity.class);
 
