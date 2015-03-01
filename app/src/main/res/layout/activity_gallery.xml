@@ -12,7 +12,7 @@
         android:layout_height="75dp"
         android:textColor="#FFFFFF"
         android:textStyle="bold|italic"
-        android:text="Gallery"
+        android:text="g a l l e r y"
         android:gravity="center"
         android:textSize="60sp"/>
     <GridView
