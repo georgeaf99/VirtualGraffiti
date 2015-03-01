@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 

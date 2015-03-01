@@ -1,10 +1,17 @@
 package com.gfarcasiu.virtualgrafitti;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -15,24 +22,34 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
 //import android.widget.LinearLayout;
 
 
 public class DrawActivity extends Activity {
     //private ImageButton currPaint = null;
     private DrawingView drawView;
-    private Firebase firebaseRef;
+    private Location lastLocation;
+
+    public static HashSet<File> files = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Establish connection with Firebase
-        Firebase.setAndroidContext(this);
-        firebaseRef = new Firebase("https://virtualgraffiti.firebaseio.com/");
 
         //Add Firebase listener
-        firebaseRef.addValueEventListener(new ValueEventListener() {
+        /*firebaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 System.out.println(snapshot.getValue());
@@ -41,7 +58,7 @@ public class DrawActivity extends Activity {
             public void onCancelled(FirebaseError firebaseError) {
                 System.out.println("The read failed: " + firebaseError.getMessage());
             }
-        });
+        });*/
 
         //Writing to Firebase example
         //https://www.firebase.com/docs/android/guide/saving-data.html
@@ -61,10 +78,31 @@ public class DrawActivity extends Activity {
         BitmapFactory.decodeFile(imageLoc, options);
 
         ((ImageView)(findViewById(R.id.image_view))).setImageBitmap(
-                decodeSampledBitmapFromResource(options, imageLoc, 1920, 1080)
+                decodeSampledBitmapFromResource(options, imageLoc, 960, 540)
         );
 
         drawView = (DrawingView)findViewById(R.id.image_view);
+
+        // start getting location data
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        // Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                lastLocation = location;
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+
+        // Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
     @Override
@@ -153,7 +191,55 @@ public class DrawActivity extends Activity {
     }//change violet
 
     public void submit(View view){
-        Bitmap bitmap = drawView.getBitmap();
+        writeToDisk(drawView.getBitmap());
 
+        finish();
     }
+
+    public void writeToDisk(Bitmap b) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("Error", "Error creating media file, check storage permissions");
+            return;
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            b.compress(Bitmap.CompressFormat.JPEG, 0, fos);
+            files.add(pictureFile);
+
+            Log.i("Info", "Abs Pat: " + pictureFile.getAbsolutePath());
+        } catch (FileNotFoundException e) {
+            Log.d("Error", "File not found: " + e);
+        } catch (IOException e) {
+            Log.d("Error", "Error accessing file: " + e);
+        } catch (NullPointerException e) {
+            Log.d("Error", "Null pointer exceptions and stuffs");
+        }
+    }
+
+    // HELPER METHOD
+    private File getOutputMediaFile() {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "MyCameraApp");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d("Error", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
+    }
+
 }

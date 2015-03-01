@@ -61,7 +61,8 @@ public class DrawingView extends ImageView {
         super.onSizeChanged(w, h, oldw, oldh);
 
         //canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        canvasBitmap = Bitmap.createScaledBitmap(drawableToBitmap(getDrawable()), w, h, false);
+        Bitmap bm = drawableToBitmap(getDrawable());
+        canvasBitmap = Bitmap.createScaledBitmap(bm, w, h, true);
         drawCanvas = new Canvas(canvasBitmap);
     }
 
