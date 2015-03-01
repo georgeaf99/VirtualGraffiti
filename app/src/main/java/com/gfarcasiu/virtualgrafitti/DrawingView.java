@@ -99,4 +99,8 @@ public class DrawingView extends ImageView {
         invalidate();
         drawPaint.setColor(newColor);
     }
+
+    public Bitmap getBitmap(){
+        return canvasBitmap;
+    }//get bitmap
 }
