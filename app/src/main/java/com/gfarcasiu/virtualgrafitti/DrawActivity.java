@@ -132,4 +132,8 @@ public class DrawActivity extends Activity {
         drawView.setColor(0xFFFF00FF);
     }//change violet
 
+    public void submit(View view){
+        Bitmap bitmap = drawView.getBitmap();
+
+    }
 }
